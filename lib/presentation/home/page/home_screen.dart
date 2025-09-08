@@ -1,82 +1,120 @@
 import 'dart:ui';
 
-import 'package:exp_manager/core/app_color.dart';
-import 'package:exp_manager/core/app_fonts.dart';
+import 'package:exp_manager/core/utils/app_color.dart';
+import 'package:exp_manager/core/utils/app_fonts.dart';
+import 'package:exp_manager/core/utils/extension.dart';
+import 'package:exp_manager/presentation/home/manager/mode/lighting_mode_bloc.dart';
+import 'package:exp_manager/presentation/home/manager/mode/lighting_mode_event.dart';
+import 'package:exp_manager/presentation/home/manager/mode/lighting_mode_state.dart';
 import 'package:exp_manager/presentation/home/widget/balance.dart';
 import 'package:exp_manager/presentation/home/widget/transaction.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final height= MediaQuery.sizeOf(context).height;
-    final width= MediaQuery.sizeOf(context).width;
-    
-    return Container(
-   
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          
-          begin: Alignment.topRight,
-          end: Alignment.bottomLeft,
-          colors: [AppColor.darkBlue, AppColor.containerColor]
-          // stops: [
-          //   0.1,
-          //   0.7,
-          //   0.8,
-          //   1.0,
-          // ],
-          // colors: [
-          //   Colors.transparent,
-          //   AppColor.darkBlue,
-          //   Color(0x412B136C),
-          //   Colors.teal,
-          // ],
+  State<HomeScreen> createState() => _HomeScreenState();
+}
 
-        )
-      ),
-      
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
-        body: SingleChildScrollView(
-          physics: const AlwaysScrollableScrollPhysics(),
-          child: BackdropFilter(
-            filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
-            child: SizedBox(
-              width: width,
-              child: Column(
+class _HomeScreenState extends State<HomeScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (_) => LightingModeBloc(),
+      child: BlocBuilder<LightingModeBloc, LightingModeState>(
+        builder: (context, state) {
+          final isDark = state.maybeWhen(
+            darkMode: () => true,
+            orElse: () => false,
+          );
+
+          return AnimatedContainer(
+            duration: const Duration(milliseconds: 200),
+            decoration: BoxDecoration(
+              color: isDark ? AppColor.shadowGrey : AppColor.backgroundColor,
+            ),
+            child: Scaffold(
+              backgroundColor: Colors.transparent,
+              body: Column(
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.all(20),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const SizedBox(height: kToolbarHeight,),
-                        GestureDetector(
-                          onTap: (){
-                          },
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
+                  Expanded(
+                    child: SingleChildScrollView(
+                      physics: const AlwaysScrollableScrollPhysics(),
+                      child: BackdropFilter(
+                        filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
+                        child: SizedBox(
+                          width: context.width,
+                          child: Column(
                             children: [
-                              const Icon(Icons.arrow_drop_down_outlined, color: AppColor.containerColor,),
-                              Text("Month - Year", style: AppFontStyle.largeText.copyWith(color: AppColor.primaryTextColor, fontWeight: FontWeight.bold)),
+                              Padding(
+                                padding: const EdgeInsets.all(20),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const SizedBox(
+                                      height: kToolbarHeight,
+                                    ),
+                                    GestureDetector(
+                                        onTap: () {},
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            CircleAvatar(
+                                              backgroundColor: isDark ? AppColor.containerColor :
+                                                  AppColor.shadowGrey,
+                                            ),
+                                            Row(
+                                              children: [
+                                                 Icon(
+                                                  Icons
+                                                      .arrow_drop_down_outlined,
+                                                  color: isDark ? AppColor.containerColor : AppColor.shadowGrey,
+                                                ),
+                                                Text("Month - Year",
+                                                    style: AppFontStyle
+                                                        .largeText
+                                                        .copyWith(
+                                                            color: isDark ? AppColor.containerColor : AppColor
+                                                                .shadowGrey ,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold)),
+                                              ],
+                                            ),
+                                            GestureDetector(
+                                                onTap: () {
+                                                  context.read<LightingModeBloc>().add(const LightingModeEvent.toggle());
+                                                },
+                                                child: Icon(
+                                                    Icons.light_mode_rounded,
+                                                    color: isDark
+                                                        ? AppColor
+                                                            .containerColor
+                                                        : AppColor.shadowGrey))
+                                          ],
+                                        )),
+                                    SizedBox(
+                                      height: context.height * 0.04,
+                                    ),
+                                    const TotalExpense(),
+                                  ],
+                                ),
+                              ),
+                              const RecentTransaction(),
                             ],
-                          )),
-                        SizedBox(height: height*0.04,),
-                        const TotalExpense(),
-                        SizedBox(height: height*0.01,),
-                        
-                      ],
+                          ),
+                        ),
+                      ),
                     ),
                   ),
-                  const RecentTransaction(),
                 ],
               ),
             ),
-          ),
-        ),
+          );
+        },
       ),
     );
   }

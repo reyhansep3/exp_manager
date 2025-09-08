@@ -1,6 +1,6 @@
-import 'package:exp_manager/core/app_color.dart';
-import 'package:exp_manager/core/app_fonts.dart';
-import 'package:exp_manager/core/route.dart';
+import 'package:exp_manager/core/utils/app_color.dart';
+import 'package:exp_manager/core/utils/app_fonts.dart';
+import 'package:exp_manager/core/utils/route.dart';
 import 'package:exp_manager/domain/navbar_view_model.dart';
 import 'package:exp_manager/presentation/accounts/page/accounts_screen.dart';
 import 'package:exp_manager/presentation/home/page/home_screen.dart';
@@ -50,6 +50,7 @@ class _HomeNavState extends State<HomeNav> {
 
   @override
   Widget build(BuildContext context) {
+    // ignore: deprecated_member_use
     return WillPopScope(
       onWillPop: () {
         // showDialog(
@@ -61,7 +62,7 @@ class _HomeNavState extends State<HomeNav> {
         return Future.value(false);
       },
       child: Scaffold(
-        backgroundColor: AppColor.ligthDarkBlue,
+        backgroundColor: AppColor.shadowGrey,
         body: Consumer<NavbarViewModel>(builder: (context, navbar, _) {
           return PageStorage(
               bucket: navbarProvider.bucket, child: navbarProvider.currentScreen);
@@ -69,7 +70,7 @@ class _HomeNavState extends State<HomeNav> {
         floatingActionButton: SizedBox(
           child: FloatingActionButton(
             elevation: 0,
-            backgroundColor: AppColor.darkBlue,
+            backgroundColor: AppColor.shadowGrey,
             shape: const CircleBorder(
               side: BorderSide(width: 3, color: Color(0xfff2f6ff))
             ),

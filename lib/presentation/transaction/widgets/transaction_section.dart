@@ -1,8 +1,7 @@
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
-import 'package:exp_manager/core/app_fonts.dart';
+import 'package:exp_manager/core/utils/app_fonts.dart';
 import 'package:exp_manager/presentation/transaction/widgets/transaction_items.dart';
 import 'package:flutter/material.dart';
- import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
  
 class TransactionSection extends StatefulWidget {
   const TransactionSection({super.key});

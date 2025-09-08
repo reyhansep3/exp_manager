@@ -1,7 +1,11 @@
-import 'package:exp_manager/core/app_color.dart';
-import 'package:exp_manager/core/app_fonts.dart';
+import 'package:exp_manager/core/utils/app_color.dart';
+import 'package:exp_manager/core/utils/app_fonts.dart';
+import 'package:exp_manager/core/utils/extension.dart';
+import 'package:exp_manager/presentation/home/manager/mode/lighting_mode_bloc.dart';
+import 'package:exp_manager/presentation/home/manager/mode/lighting_mode_state.dart';
 import 'package:exp_manager/presentation/home/widget/transaction_items.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class RecentTransaction extends StatefulWidget {
   const RecentTransaction({super.key});
@@ -13,45 +17,57 @@ class RecentTransaction extends StatefulWidget {
 class _RecentTransactionState extends State<RecentTransaction> {
   @override
   Widget build(BuildContext context) {
-    final height= MediaQuery.sizeOf(context).height;
-    // final width= MediaQuery.sizeOf(context).width;
-    return Container(
-      decoration: BoxDecoration(
-        color: AppColor.darkBlue.withOpacity(0.3),
-        borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(20),
-          topRight: Radius.circular(20))
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text("Account Balance", style: AppFontStyle.mediumText.copyWith(color: AppColor.primaryTextColor, fontWeight: FontWeight.bold),),
-            SizedBox(height: height*0.01,),
-            ...List.generate(10, (index) {
-              return Column(
-                children: [
-                  customTransactionItems(
-                      context, 
-                      const Icon(Icons.shopping_bag, size: 30,),
-                      "food", 
-                      "amount", 
-                      const Text("data"), 
-                      "description", 
-                      "time",
-                      Colors.amber),
-                  SizedBox(
-                    height: height*0.01,
-                  )
-                ],
-              );
-            },
-            )
-            
-          ],
-        ),
-      ),
+    return BlocBuilder<LightingModeBloc, LightingModeState>(
+      builder: (context, state) {
+        final isDark = state.maybeWhen(
+          darkMode: () => true,
+          orElse: () => false,
+        );
+    
+        return Padding(
+          padding: EdgeInsets.only(
+              left: context.width * 0.05, right: context.width * 0.05),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "Account Balance",
+                style: AppFontStyle.mediumText.copyWith(
+                    color: isDark ? AppColor.containerColor : AppColor.shadowGrey , fontWeight: FontWeight.bold),
+              ),
+              SizedBox(
+                height: context.height * 0.02,
+              ),
+              ListView.builder(
+                  padding: EdgeInsets.zero,
+                  itemCount: 100,
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    return Column(
+                      children: [
+                        customTransactionItems(
+                            context,
+                            const Icon(
+                              Icons.shopping_bag,
+                              size: 30,
+                              color: AppColor.containerColor,
+                            ),
+                            "food",
+                            "amount",
+                            const Text("data"),
+                            "description",
+                            "time",
+                            AppColor.shadowGrey),
+                        SizedBox(
+                          height: context.height * 0.01,
+                        )
+                      ],
+                    );
+                  })
+            ],
+          ),
+        );
+      },
     );
   }
 }

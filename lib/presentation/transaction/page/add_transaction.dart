@@ -1,5 +1,4 @@
-import 'package:exp_manager/core/app_color.dart';
-import 'package:exp_manager/core/app_fonts.dart';
+import 'package:exp_manager/core/utils/app_color.dart';
 import 'package:exp_manager/presentation/transaction/widgets/transaction_section.dart';
 import 'package:flutter/material.dart';
 
