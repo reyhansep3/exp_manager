@@ -8,7 +8,7 @@ class AppColor {
   static const primaryColorDark = Color(0xFF134490);
   static const primaryColorLight = Color(0xFF268BD9);
   static const containerColor = Colors.white;
-  static const backgroundColor = Color.fromARGB(223, 245, 245, 245);
+  static const backgroundColor = Color(0xDFF5F5F5);
   static const primaryTextColor = Color.fromARGB(255, 255, 255, 255);
   static const secondaryTextColor = Color.fromARGB(255, 232, 232, 232);
   static const tirnaryTextColor = Color.fromARGB(255, 0, 0, 0);

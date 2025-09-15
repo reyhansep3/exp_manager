@@ -41,6 +41,8 @@ dependencies:
   emoji_picker_flutter: ^2.2.0
   freezed_annotation: ^2.4.4
   flutter_bloc: ^9.1.1
+  http: ^1.5.0
+  speech_to_text: ^6.6.2
 
 dev_dependencies:
   flutter_test:
@@ -71,6 +73,7 @@ flutter:
   assets:
     - assets/image/home/
     - assets/icons/home/
+    - assets/logo/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

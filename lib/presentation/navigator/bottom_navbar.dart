@@ -2,11 +2,9 @@ import 'package:exp_manager/core/utils/app_color.dart';
 import 'package:exp_manager/core/utils/app_fonts.dart';
 import 'package:exp_manager/core/utils/route.dart';
 import 'package:exp_manager/domain/navbar_view_model.dart';
-import 'package:exp_manager/presentation/accounts/page/accounts_screen.dart';
 import 'package:exp_manager/presentation/home/page/home_screen.dart';
 import 'package:exp_manager/presentation/profile/page/profile_screen.dart';
-import 'package:exp_manager/presentation/stats/page/stats_screen.dart';
-import 'package:exp_manager/presentation/transaction/page/add_transaction.dart';
+import 'package:exp_manager/presentation/chatbot/page/chat_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -37,14 +35,8 @@ class _HomeNavState extends State<HomeNav> {
       navbarProvider.currentScreen = const HomeScreen();
       navbarProvider.currentTab = 0;
     } else if (widget.currentTab == 1) {
-      navbarProvider.currentScreen = const AccountsScreen();
-      navbarProvider.currentTab = 1;
-    } else if (widget.currentTab == 2) {
-      navbarProvider.currentScreen = const StatsScreen();
-      navbarProvider.currentTab = 2;
-    } else if (widget.currentTab == 3) {
       navbarProvider.currentScreen = const ProfileScreen();
-      navbarProvider.currentTab = 3;
+      navbarProvider.currentTab = 1;
     }
   }
 
@@ -53,12 +45,6 @@ class _HomeNavState extends State<HomeNav> {
     // ignore: deprecated_member_use
     return WillPopScope(
       onWillPop: () {
-        // showDialog(
-        //   context: context, 
-        //   builder: (context) {
-        //     return const ExitConfirmationDialog();
-        //   }
-        // );
         return Future.value(false);
       },
       child: Scaffold(
@@ -75,7 +61,7 @@ class _HomeNavState extends State<HomeNav> {
               side: BorderSide(width: 3, color: Color(0xfff2f6ff))
             ),
             onPressed: () {
-              Navigator.of(context).push(slideRoute(const AddTransaction()));
+              Navigator.of(context).push(slideRoute(const ChatScreen()));
             },
             child: const Icon(Icons.add, size: 30, color: AppColor.containerColor,)
           )
@@ -122,7 +108,7 @@ class _HomeNavState extends State<HomeNav> {
                   // width: MediaQuery.sizeOf(context).height * 0.07,
                   child: GestureDetector(
                     onTap: () {
-                      navbarProvider.changePage(const AccountsScreen(), 1);
+                      navbarProvider.changePage(const ProfileScreen(), 1);
                     },
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -147,67 +133,67 @@ class _HomeNavState extends State<HomeNav> {
                     ),
                   ),
                 ),
-                const SizedBox(
-                  width: 20,
-                ),
-                SizedBox(
-                  // width: MediaQuery.sizeOf(context).height * 0.07,
-                  child: GestureDetector(
-                    onTap: () {
-                      navbarProvider.changePage(const StatsScreen(), 2);
-                    },
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.abc_sharp,
-                          size: 23,
-                          color: navbarProvider.currentTab == 2
-                              ? AppColor.containerColor
-                              : Colors.grey,
-                        ),
-                        Text(
-                          "Chat",
-                          style: AppFontStyle.smallText.copyWith(
-                            color: navbarProvider.currentTab == 2
-                                ? AppColor.containerColor
-                                : Colors.grey
-                          ),
-                          textScaler: const TextScaler.linear(1)
-                        )
-                      ]
-                    )
-                  )
-                ),
-                SizedBox(
-                  width: MediaQuery.sizeOf(context).height * 0.07,
-                  child: GestureDetector(
-                    onTap: () {
-                      navbarProvider.changePage(const ProfileScreen(), 3);
-                    },
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.abc_sharp,
-                          size: 23,
-                          color: navbarProvider.currentTab == 3
-                              ? AppColor.containerColor
-                              : Colors.grey
-                        ),
-                        Text(
-                          "Profil",
-                          style: AppFontStyle.smallText.copyWith(
-                            color: navbarProvider.currentTab == 3
-                                ? AppColor.containerColor
-                                : Colors.grey
-                          ),
-                          textScaler: const TextScaler.linear(1)
-                        )
-                      ]
-                    )
-                  )
-                )
+                // const SizedBox(
+                //   width: 20,
+                // ),
+                // SizedBox(
+                //   // width: MediaQuery.sizeOf(context).height * 0.07,
+                //   child: GestureDetector(
+                //     onTap: () {
+                //       navbarProvider.changePage(const StatsScreen(), 2);
+                //     },
+                //     child: Column(
+                //       mainAxisAlignment: MainAxisAlignment.center,
+                //       children: [
+                //         Icon(
+                //           Icons.abc_sharp,
+                //           size: 23,
+                //           color: navbarProvider.currentTab == 2
+                //               ? AppColor.containerColor
+                //               : Colors.grey,
+                //         ),
+                //         Text(
+                //           "Chat",
+                //           style: AppFontStyle.smallText.copyWith(
+                //             color: navbarProvider.currentTab == 2
+                //                 ? AppColor.containerColor
+                //                 : Colors.grey
+                //           ),
+                //           textScaler: const TextScaler.linear(1)
+                //         )
+                //       ]
+                //     )
+                //   )
+                // ),
+                // SizedBox(
+                //   width: MediaQuery.sizeOf(context).height * 0.07,
+                //   child: GestureDetector(
+                //     onTap: () {
+                //       navbarProvider.changePage(const ProfileScreen(), 3);
+                //     },
+                //     child: Column(
+                //       mainAxisAlignment: MainAxisAlignment.center,
+                //       children: [
+                //         Icon(
+                //           Icons.abc_sharp,
+                //           size: 23,
+                //           color: navbarProvider.currentTab == 3
+                //               ? AppColor.containerColor
+                //               : Colors.grey
+                //         ),
+                //         Text(
+                //           "Profil",
+                //           style: AppFontStyle.smallText.copyWith(
+                //             color: navbarProvider.currentTab == 3
+                //                 ? AppColor.containerColor
+                //                 : Colors.grey
+                //           ),
+                //           textScaler: const TextScaler.linear(1)
+                //         )
+                //       ]
+                //     )
+                //   )
+                // )
               ]
             )
           );
