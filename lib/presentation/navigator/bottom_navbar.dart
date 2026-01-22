@@ -1,10 +1,10 @@
 import 'package:exp_manager/core/utils/app_color.dart';
 import 'package:exp_manager/core/utils/app_fonts.dart';
-import 'package:exp_manager/core/utils/route.dart';
+import 'package:exp_manager/core/utils/common_bottom_sheet.dart';
+import 'package:exp_manager/core/utils/extension.dart';
 import 'package:exp_manager/domain/navbar_view_model.dart';
 import 'package:exp_manager/presentation/home/page/home_screen.dart';
 import 'package:exp_manager/presentation/profile/page/profile_screen.dart';
-import 'package:exp_manager/presentation/chatbot/page/chat_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -61,9 +61,30 @@ class _HomeNavState extends State<HomeNav> {
               side: BorderSide(width: 3, color: Color(0xfff2f6ff))
             ),
             onPressed: () {
-              Navigator.of(context).push(slideRoute(const ChatScreen()));
+              commonBottomSheet(
+                context, 
+                dismissAction: (value) {}, 
+                height: context.height*0.4,
+                widgets: [
+                  Column(
+                    children: [
+                      SizedBox(height: context.height*0.1,),
+                      Container(
+                        decoration: BoxDecoration(
+                          color: AppColor.backgroundColor,
+                          borderRadius: BorderRadius.circular(100)
+                        ),
+                        child: const Padding(
+                          padding: EdgeInsets.all(20),
+                          child: Icon(Icons.mic),
+                        ),
+                      ),
+                    ],
+                  )
+                ]
+              );
             },
-            child: const Icon(Icons.add, size: 30, color: AppColor.containerColor,)
+            child: const Icon(Icons.mic, size: 30, color: AppColor.containerColor,)
           )
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -71,7 +92,7 @@ class _HomeNavState extends State<HomeNav> {
           Consumer<NavbarViewModel>(builder: (context, navbar, _) {
           return BottomAppBar(
             surfaceTintColor: AppColor.containerColor,
-            color: AppColor.ligthDarkBlue,
+            color: AppColor.containerColor,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -88,14 +109,14 @@ class _HomeNavState extends State<HomeNav> {
                           Icons.home,
                           size: 23,
                           color: navbarProvider.currentTab == 0
-                              ? AppColor.containerColor
+                              ? AppColor.greyish
                               : Colors.grey,
                         ),
                         Text(
                           "Beranda",
                           style: AppFontStyle.smallText.copyWith(
                             color: navbarProvider.currentTab == 0
-                                ? AppColor.containerColor
+                                ? AppColor.greyish
                                 : Colors.grey
                           ),
                           textScaler: const TextScaler.linear(1)
@@ -105,7 +126,6 @@ class _HomeNavState extends State<HomeNav> {
                   )
                 ),
                 SizedBox(
-                  // width: MediaQuery.sizeOf(context).height * 0.07,
                   child: GestureDetector(
                     onTap: () {
                       navbarProvider.changePage(const ProfileScreen(), 1);
@@ -117,14 +137,14 @@ class _HomeNavState extends State<HomeNav> {
                           Icons.monetization_on,
                           size: 23,
                           color: navbarProvider.currentTab == 1
-                              ? AppColor.containerColor
+                              ? AppColor.greyish
                               : Colors.grey,
                         ),
                         Text(
-                          "Accounts",
+                          "Target",
                           style: AppFontStyle.smallText.copyWith(
                             color: navbarProvider.currentTab == 1
-                                ? AppColor.containerColor
+                                ? AppColor.greyish
                                 : Colors.grey,
                           ),
                           textScaler: const TextScaler.linear(1)
@@ -133,67 +153,7 @@ class _HomeNavState extends State<HomeNav> {
                     ),
                   ),
                 ),
-                // const SizedBox(
-                //   width: 20,
-                // ),
-                // SizedBox(
-                //   // width: MediaQuery.sizeOf(context).height * 0.07,
-                //   child: GestureDetector(
-                //     onTap: () {
-                //       navbarProvider.changePage(const StatsScreen(), 2);
-                //     },
-                //     child: Column(
-                //       mainAxisAlignment: MainAxisAlignment.center,
-                //       children: [
-                //         Icon(
-                //           Icons.abc_sharp,
-                //           size: 23,
-                //           color: navbarProvider.currentTab == 2
-                //               ? AppColor.containerColor
-                //               : Colors.grey,
-                //         ),
-                //         Text(
-                //           "Chat",
-                //           style: AppFontStyle.smallText.copyWith(
-                //             color: navbarProvider.currentTab == 2
-                //                 ? AppColor.containerColor
-                //                 : Colors.grey
-                //           ),
-                //           textScaler: const TextScaler.linear(1)
-                //         )
-                //       ]
-                //     )
-                //   )
-                // ),
-                // SizedBox(
-                //   width: MediaQuery.sizeOf(context).height * 0.07,
-                //   child: GestureDetector(
-                //     onTap: () {
-                //       navbarProvider.changePage(const ProfileScreen(), 3);
-                //     },
-                //     child: Column(
-                //       mainAxisAlignment: MainAxisAlignment.center,
-                //       children: [
-                //         Icon(
-                //           Icons.abc_sharp,
-                //           size: 23,
-                //           color: navbarProvider.currentTab == 3
-                //               ? AppColor.containerColor
-                //               : Colors.grey
-                //         ),
-                //         Text(
-                //           "Profil",
-                //           style: AppFontStyle.smallText.copyWith(
-                //             color: navbarProvider.currentTab == 3
-                //                 ? AppColor.containerColor
-                //                 : Colors.grey
-                //           ),
-                //           textScaler: const TextScaler.linear(1)
-                //         )
-                //       ]
-                //     )
-                //   )
-                // )
+                
               ]
             )
           );

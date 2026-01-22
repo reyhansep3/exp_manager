@@ -19,10 +19,10 @@ class _RecentTransactionState extends State<RecentTransaction> {
   Widget build(BuildContext context) {
     return BlocBuilder<LightingModeBloc, LightingModeState>(
       builder: (context, state) {
-        final isDark = state.maybeWhen(
-          darkMode: () => true,
-          orElse: () => false,
-        );
+        // final isDark = state.maybeWhen(
+        //   darkMode: () => true,
+        //   orElse: () => false,
+        // );
     
         return Padding(
           padding: EdgeInsets.only(
@@ -33,7 +33,7 @@ class _RecentTransactionState extends State<RecentTransaction> {
               Text(
                 "Account Balance",
                 style: AppFontStyle.mediumText.copyWith(
-                    color: isDark ? AppColor.containerColor : AppColor.shadowGrey , fontWeight: FontWeight.bold),
+                    color: AppColor.shadowGrey , fontWeight: FontWeight.bold),
               ),
               SizedBox(
                 height: context.height * 0.02,
@@ -47,16 +47,20 @@ class _RecentTransactionState extends State<RecentTransaction> {
                       children: [
                         customTransactionItems(
                             context,
-                            const Icon(
-                              Icons.shopping_bag,
-                              size: 30,
-                              color: AppColor.containerColor,
+                            const CircleAvatar(
+                              backgroundColor: AppColor.backgroundColor,
+                              child: Icon(
+                                Icons.arrow_downward_rounded,
+                                color: AppColor.greyish,
+                              ),
                             ),
                             "food",
                             "amount",
                             const Text("data"),
                             "description",
                             "time",
+                            AppColor.greyish,
+                            AppColor.containerColor,
                             AppColor.shadowGrey),
                         SizedBox(
                           height: context.height * 0.01,

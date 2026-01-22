@@ -21,8 +21,7 @@ class NavbarViewModel extends ChangeNotifier {
 
   void switchCKLLogo() {
     if (currentScreen is HomeScreen ||
-        // currentScreen is StatsScreen||
-        // currentScreen is ProfileScreen||
+
         currentScreen is ProfileScreen
         ) {
       isMainScreen = true;

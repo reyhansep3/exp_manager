@@ -16,7 +16,14 @@ class _StatsScreenState extends State<StatsScreen> {
       body: SizedBox(
         height: height,
         width: width,
-        child: const Text("data"),),
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            children: [
+              const Text("asdasdas"),
+            ],
+          ),
+        ),),
     );
   }
 }

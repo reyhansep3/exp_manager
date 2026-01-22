@@ -8,10 +8,10 @@ class AppColor {
   static const primaryColorDark = Color(0xFF134490);
   static const primaryColorLight = Color(0xFF268BD9);
   static const containerColor = Colors.white;
-  static const backgroundColor = Color(0xDFF5F5F5);
+  static const backgroundColor = Color(0xFFf0f1f2);
   static const primaryTextColor = Color.fromARGB(255, 255, 255, 255);
   static const secondaryTextColor = Color.fromARGB(255, 232, 232, 232);
-  static const tirnaryTextColor = Color.fromARGB(255, 0, 0, 0);
+  static const tirnaryTextColor = Color(0xFF0d0c0f);
   static const grey = Color(0xFFD6D6D6);
   static const textGrey = Color(0xFF525252);
   static const contextGrey = Color(0xFF747474);
@@ -28,4 +28,6 @@ class AppColor {
   static const ligthDarkBlue = Color.fromARGB(65, 17, 7, 44);
   static Color shadowColor = const Color(0xFF000000).withValues(alpha: 0.1);
   static const shadowGrey = Color(0xff292d33);
+  static const limeGreen = Color(0xff6FE396);
+  static const greyish = Color(0xff1e1c21);
 }

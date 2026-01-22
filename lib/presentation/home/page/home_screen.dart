@@ -26,14 +26,14 @@ class _HomeScreenState extends State<HomeScreen> {
       child: BlocBuilder<LightingModeBloc, LightingModeState>(
         builder: (context, state) {
           final isDark = state.maybeWhen(
-            darkMode: () => true,
-            orElse: () => false,
+            darkMode: () => false,
+            orElse: () => true,
           );
 
           return AnimatedContainer(
             duration: const Duration(milliseconds: 200),
             decoration: BoxDecoration(
-              color: isDark ? AppColor.shadowGrey : AppColor.backgroundColor,
+              color: !isDark ? AppColor.tirnaryTextColor : AppColor.backgroundColor,
             ),
             child: Scaffold(
               backgroundColor: Colors.transparent,
@@ -56,53 +56,43 @@ class _HomeScreenState extends State<HomeScreen> {
                                     const SizedBox(
                                       height: kToolbarHeight,
                                     ),
-                                    GestureDetector(
-                                        onTap: () {},
-                                        child: Row(
+                                     Row(
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
                                           children: [
-                                            CircleAvatar(
-                                              backgroundColor: isDark ? AppColor.containerColor :
-                                                  AppColor.shadowGrey,
-                                            ),
-                                            Row(
-                                              children: [
-                                                 Icon(
-                                                  Icons
-                                                      .arrow_drop_down_outlined,
-                                                  color: isDark ? AppColor.containerColor : AppColor.shadowGrey,
-                                                ),
-                                                Text("Month - Year",
-                                                    style: AppFontStyle
-                                                        .largeText
-                                                        .copyWith(
-                                                            color: isDark ? AppColor.containerColor : AppColor
-                                                                .shadowGrey ,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold)),
-                                              ],
-                                            ),
+                                            Text("Welcome Back",
+                                                style: AppFontStyle
+                                                    .largeText
+                                                    .copyWith(
+                                                        color: !isDark ? AppColor.containerColor : AppColor
+                                                            .shadowGrey ,
+                                                        fontWeight:
+                                                            FontWeight
+                                                                .bold)),
                                             GestureDetector(
                                                 onTap: () {
                                                   context.read<LightingModeBloc>().add(const LightingModeEvent.toggle());
                                                 },
                                                 child: Icon(
                                                     Icons.light_mode_rounded,
-                                                    color: isDark
+                                                    color: !isDark
                                                         ? AppColor
                                                             .containerColor
                                                         : AppColor.shadowGrey))
                                           ],
-                                        )),
+                                        ),
                                     SizedBox(
-                                      height: context.height * 0.04,
+                                      height: context.height * 0.02,
                                     ),
                                     const TotalExpense(),
+                                    // SizedBox(
+                                    //   height: context.height * 0.02,
+                                    // ),
+                                    // const ExpenseMenu(),
                                   ],
                                 ),
                               ),
+                              
                               const RecentTransaction(),
                             ],
                           ),
